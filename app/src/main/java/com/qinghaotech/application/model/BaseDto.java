@@ -1,0 +1,24 @@
+package com.qinghaotech.application.model;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+/**
+ * @author Jinx
+ */
+@Getter
+@Setter
+public abstract class BaseDto {
+
+    private Long id;
+
+    private LocalDateTime createAt;
+
+    private String createBy;
+
+    private LocalDateTime modifyAt;
+
+    private String modifyBy;
+}
