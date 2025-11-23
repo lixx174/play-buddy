@@ -1,10 +1,10 @@
 package com.qinghaotech.infra.configuration.security;
 
 import com.qinghaotech.AppConfiguration;
-import com.qinghaotech.domain.entity.Account;
 import com.qinghaotech.domain.entity.User;
 import com.qinghaotech.domain.factory.EntityFactory;
 import com.qinghaotech.domain.primitive.Applet;
+import com.qinghaotech.domain.repository.AppletQuery;
 import com.qinghaotech.domain.repository.UserRepository;
 import com.qinghaotech.vendor.WechatClient;
 import com.qinghaotech.vendor.WechatLoginRequest;
@@ -33,7 +33,7 @@ public class WechatJdbcUserDetailService implements UserDetailsService {
     private final UserRepository userRepo;
     private final WechatClient client;
     private final AppConfiguration configuration;
-    private final EntityFactory<Account> factory;
+    private final EntityFactory<User> factory;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -46,12 +46,17 @@ public class WechatJdbcUserDetailService implements UserDetailsService {
             throw new AuthenticationServiceException("Fail to Request Wechat : %s".formatted(response.getErrMsg()));
         }
 
-        Applet applet = new Applet(response.getOpenId(), response.getUnionId());
-        Optional<User> user = userRepo.findByApplet(applet);
+        AppletQuery query = AppletQuery.builder()
+                .openId(response.getOpenId())
+                .unionId(response.getUnionId())
+                .build();
+
+        Optional<User> user = userRepo.findByApplet(query);
         if (user.isEmpty()) {
             // 小程序用户 第一次登录进行注册
-            Account account = factory.create(applet);
-            // TODO 保存user吗？
+            Applet applet = new Applet(response.getOpenId(), response.getUnionId());
+            user = Optional.of(factory.create(applet));
+            userRepo.save(user.get());
         }
 
         return new UserDetail(user.get());

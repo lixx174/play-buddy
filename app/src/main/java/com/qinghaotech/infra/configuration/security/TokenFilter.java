@@ -1,7 +1,8 @@
 package com.qinghaotech.infra.configuration.security;
 
-import com.j.domain.entity.token.Token;
-import com.j.domain.repository.TokenRepository;
+import com.qinghaotech.domain.primitive.Credential;
+import com.qinghaotech.domain.repository.CredentialQuery;
+import com.qinghaotech.domain.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.server.resource.InvalidBearerTokenException;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -20,52 +22,72 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Optional;
+import java.util.Collections;
 
-import static com.j.infra.configuration.security.TokenGenerate.TOKEN_TYPE;
 
 /**
  * @author Jinx
  */
 @RequiredArgsConstructor
 public class TokenFilter extends OncePerRequestFilter {
-
-    private final AntPathMatcher matcher;
-    private final TokenRepository tokenRepository;
-
-    private final Collection<String> PERMIT_PATH = Arrays.asList(
+    public static final String ACCESS_TOKEN_PARAMETER = "Authorization";
+    public static final Collection<String> PERMIT_PATTERNS = Arrays.asList(
             "/login",
             "/test/**"
     );
 
+    private final UserRepository userRepository;
+    private final AntPathMatcher matcher;
+
+
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
+    protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
-        String path = request.getRequestURI();
 
-        if (PERMIT_PATH.stream().noneMatch(url -> matcher.match(url, path))) {
-            String accessToken = request.getHeader("Authorization");
+        if (isPermissible(request)) {
+            filterChain.doFilter(request, response);
+        } else {
+            String accessToken = request.getHeader(ACCESS_TOKEN_PARAMETER);
             if (StringUtils.hasText(accessToken)) {
-                accessToken = accessToken.substring(TOKEN_TYPE.length() + 1);
-                Optional<Token> token = tokenRepository.findByAccessToken(accessToken);
-                if (token.isPresent()) {
-                    if (token.get().isAccessExpired()) {
-                        throw new AccountExpiredException("Access token has expired");
-                    }
-
-                    Authentication authentication = UsernamePasswordAuthenticationToken.authenticated(
-                            token.get().getUser(), "", null
-                    );
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                    filterChain.doFilter(request, response);
-                    return;
+                CredentialQuery query = CredentialQuery.builder()
+                        .accessToken(accessToken)
+                        .build();
+                var user = userRepository.findByCredential(query);
+                if (user.isEmpty()) {
+                    throw new InvalidBearerTokenException("Invalid access token : %s".formatted(accessToken));
                 }
+
+                Credential credential = user.get().getCredential();
+                if (credential == null) {
+                    throw new InvalidBearerTokenException("Invalid access token : %s".formatted(accessToken));
+                }
+                if (credential.isAccessTokenExpired()) {
+                    throw new AccountExpiredException("Access token has expired");
+                }
+
+                UserDetail userDetail = new UserDetail(user.get());
+                Authentication authentication = UsernamePasswordAuthenticationToken.authenticated(
+                        userDetail, credential, Collections.emptyList()
+                );
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                filterChain.doFilter(request, response);
+                return;
             }
 
             throw new AuthenticationCredentialsNotFoundException("AccessToken not found");
-        } else {
-            filterChain.doFilter(request, response);
         }
+    }
+
+    /**
+     * 是否允许的url
+     *
+     * @param request 请求信息
+     * @return true：允许的
+     */
+    private boolean isPermissible(@NonNull HttpServletRequest request) {
+        String path = request.getRequestURI();
+        return PERMIT_PATTERNS.stream().noneMatch(url -> matcher.match(url, path));
     }
 }

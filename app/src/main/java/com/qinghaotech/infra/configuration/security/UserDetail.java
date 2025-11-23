@@ -30,7 +30,7 @@ public record UserDetail(User user) implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getAccount().getMobile();
+        return null;
     }
 
     @Override
@@ -40,7 +40,7 @@ public record UserDetail(User user) implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return user.getStatus() == Status.FORBIDDEN;
+        return user.getStatus() != Status.FORBIDDEN;
     }
 
     @Override
@@ -50,6 +50,6 @@ public record UserDetail(User user) implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getStatus() == Status.FORBIDDEN;
+        return user.getStatus() == Status.ENABLE;
     }
 }

@@ -1,11 +1,11 @@
 package com.qinghaotech.infra.configuration.security;
 
-import com.j.application.converter.TokenConverter;
-import com.j.application.model.Result;
-import com.j.application.model.security.TokenDto;
-import com.j.domain.entity.token.Token;
-import com.j.domain.repository.TokenRepository;
-import com.j.infra.configuration.security.TokenGenerate;
+import com.qinghaotech.application.Result;
+import com.qinghaotech.application.converter.CredentialConverter;
+import com.qinghaotech.application.model.dto.CredentialDto;
+import com.qinghaotech.domain.primitive.Credential;
+import com.qinghaotech.domain.repository.CredentialQuery;
+import com.qinghaotech.domain.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +20,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import static com.j.infra.support.ManualResponseSupport.doJsonResponse;
+import static com.qinghaotech.infra.configuration.support.ManualResponseSupport.doJsonResponse;
+
 
 /**
  * @author Jinx
@@ -30,37 +31,54 @@ public class TokenRefreshFilter extends OncePerRequestFilter {
     public static final String REFRESH_TOKEN_PARAMETER = "refreshToken";
     public static final String PATTERN = "/token/refresh";
 
-    private final TokenGenerate tokenGenerate;
-    private final TokenRepository tokenRepository;
-    private final TokenConverter tokenConverter;
+    private final UserRepository userRepository;
+    private final CredentialConverter credentialConverter;
     private final AntPathMatcher matcher;
 
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
+    protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
-        if (matcher.match(PATTERN, request.getRequestURI())) {
+        if (isAvailableUrl(request)) {
             String refreshToken = request.getParameter(REFRESH_TOKEN_PARAMETER);
             if (StringUtils.hasText(refreshToken)) {
-                Token token = tokenRepository.findByRefreshToken(refreshToken)
-                        .map(t -> {
-                            if (t.isRefreshExpired()) {
-                                throw new AccountExpiredException("Refresh token has expired");
-                            }
+                CredentialQuery query = CredentialQuery.builder()
+                        .refreshToken(refreshToken)
+                        .build();
+                var user = userRepository.findByCredential(query);
+                if (user.isEmpty()) {
+                    throw new InvalidBearerTokenException("Invalid refresh token : %s".formatted(refreshToken));
+                }
 
-                            Token newToken = tokenGenerate.generate(t.getUser());
-                            return t.replace(newToken);
-                        })
-                        .orElseThrow(() -> new InvalidBearerTokenException("Invalid refresh token"));
+                Credential credential = user.get().getCredential();
+                if (credential == null) {
+                    throw new InvalidBearerTokenException("Invalid refresh token : %s".formatted(refreshToken));
+                }
+                if (credential.isRefreshTokenExpired()) {
+                    throw new AccountExpiredException("Refresh token has expired");
+                }
 
-                tokenRepository.save(token);
+                credential = new Credential();
+                user.get().issueCredential(credential);
 
-                TokenDto dto = tokenConverter.convert(token);
-                doJsonResponse(response, () -> Result.succeed(dto));
+                userRepository.save(user.get());
+
+                CredentialDto dto = credentialConverter.convert(credential);
+                doJsonResponse(response, Result.succeed(dto));
             }
         } else {
             filterChain.doFilter(request, response);
         }
+    }
+
+    /**
+     * 是否有效的url
+     *
+     * @param request 请求信息
+     * @return true：有效的
+     */
+    private boolean isAvailableUrl(@NonNull HttpServletRequest request) {
+        return matcher.match(PATTERN, request.getRequestURI());
     }
 }

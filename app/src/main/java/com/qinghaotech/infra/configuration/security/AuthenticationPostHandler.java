@@ -1,11 +1,11 @@
 package com.qinghaotech.infra.configuration.security;
 
-import com.j.application.converter.TokenConverter;
-import com.j.application.model.Result;
-import com.j.application.model.security.TokenDto;
-import com.j.domain.entity.token.Token;
-import com.j.domain.entity.user.User;
-import com.j.domain.repository.TokenRepository;
+import com.qinghaotech.application.Result;
+import com.qinghaotech.application.converter.CredentialConverter;
+import com.qinghaotech.application.model.dto.CredentialDto;
+import com.qinghaotech.domain.entity.User;
+import com.qinghaotech.domain.primitive.Credential;
+import com.qinghaotech.domain.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import static com.j.infra.support.ManualResponseSupport.doJsonResponse;
+import static com.qinghaotech.infra.configuration.support.ManualResponseSupport.doJsonResponse;
 
 /**
  * @author Jinx
@@ -23,32 +23,30 @@ import static com.j.infra.support.ManualResponseSupport.doJsonResponse;
 @RequiredArgsConstructor
 public class AuthenticationPostHandler implements AuthenticationSuccessHandler, AuthenticationFailureHandler {
 
-    private final TokenGenerate tokenGenerate;
-    private final TokenRepository tokenRepository;
-    private final TokenConverter tokenConverter;
+    private final UserRepository userRepository;
+    private final CredentialConverter credentialConverter;
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) {
+    public void onAuthenticationFailure(HttpServletRequest request,
+                                        HttpServletResponse response,
+                                        AuthenticationException exception) {
         throw exception;
     }
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        if (authentication.getPrincipal() instanceof User user) {
-            Token token = tokenRepository.findByUserId(user.getId())
-                    .map(t -> {
-                        if (t.isAccessExpired()) {
-                            Token newToken = tokenGenerate.generate(authentication);
-                            t.replace(newToken);
-                        }
-                        return t;
-                    })
-                    .orElseGet(() -> tokenGenerate.generate(authentication));
+    public void onAuthenticationSuccess(HttpServletRequest request,
+                                        HttpServletResponse response,
+                                        Authentication authentication) {
+        if (authentication.getPrincipal() instanceof UserDetail(User user)) {
+            Credential credential = user.getCredential();
+            if (credential == null || credential.isAccessTokenExpired()) {
+                credential = new Credential();
+                user.issueCredential(credential);
+                userRepository.save(user);
+            }
 
-            tokenRepository.save(token);
-
-            TokenDto dto = tokenConverter.convert(token);
-            doJsonResponse(response, () -> Result.succeed(dto));
+            CredentialDto dto = credentialConverter.convert(credential);
+            doJsonResponse(response, Result.succeed(dto));
         } else {
             throw new AuthenticationServiceException("Illegal principal");
         }

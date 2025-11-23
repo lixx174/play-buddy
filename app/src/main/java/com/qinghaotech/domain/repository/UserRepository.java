@@ -1,15 +1,42 @@
 package com.qinghaotech.domain.repository;
 
-import com.qinghaotech.domain.entity.Account;
 import com.qinghaotech.domain.entity.User;
-import com.qinghaotech.domain.primitive.Applet;
 
 import java.util.Optional;
 
 /**
+ *
  * @author Jinx
  */
 public interface UserRepository {
 
-    Optional<User> findByApplet(Applet applet);
+    /**
+     * 查询用户数量
+     *
+     * @return 用户数量
+     */
+    long findCount();
+
+    /**
+     * 通过小程序信息查询用户
+     *
+     * @param applet 小程序信息
+     * @return 用户领域
+     */
+    Optional<User> findByApplet(AppletQuery applet);
+
+    /**
+     * 通过凭证信息查询用户
+     *
+     * @param credential 凭证信息
+     * @return 用户领域
+     */
+    Optional<User> findByCredential(CredentialQuery credential);
+
+    /**
+     * 保存
+     *
+     * @param user 用户领域
+     */
+    void save(User user);
 }

@@ -3,33 +3,36 @@ package com.qinghaotech.domain.entity;
 import com.qinghaotech.domain.primitive.Applet;
 import com.qinghaotech.domain.primitive.Status;
 import lombok.Getter;
+import org.springframework.util.Assert;
 
 /**
+ * FIXME 注意小程序选不同手机号登录场景
+ *
  * @author Jinx
  */
 @Getter
-public class Account implements Entity{
+public class Account implements Entity {
 
     private Integer id;
 
-    private String mobile;
-
-    private String username;
-
-    private String password;
-
-    private String nickname;
-
-    private String avatar;
+    private Applet applet;
 
     private Status status;
 
-    private Applet applet;
+    public Account(Applet applet) {
+        this(null, applet, Status.ENABLE);
+    }
 
-    public Account(String nickname, String avatar, Status status, Applet applet) {
-        this.nickname = nickname;
-        this.avatar = avatar;
-        this.status = status;
+    public Account(Integer id, Applet applet, Status status) {
+        Assert.notNull(applet, "applet cannot be null");
+        Assert.notNull(status, "status cannot be null");
+
+        this.id = id;
         this.applet = applet;
+        this.status = status;
+    }
+
+    public void changesStatus(Status status) {
+        this.status = status;
     }
 }

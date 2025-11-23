@@ -26,20 +26,14 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } catch (AuthenticationException | IllegalArgumentException authenticationException) {
-            doJsonResponse(
-                    response,
-                    Result.fail(HttpStatus.FORBIDDEN.value(), authenticationException.getMessage())
-            );
+            var res = Result.fail(HttpStatus.FORBIDDEN.value(), authenticationException.getMessage());
+            doJsonResponse(response, res);
         } catch (AccessDeniedException accessDeniedException) {
-            doJsonResponse(
-                    response,
-                    Result.fail(HttpStatus.UNAUTHORIZED.value(), accessDeniedException.getMessage())
-            );
+            var res = Result.fail(HttpStatus.UNAUTHORIZED.value(), accessDeniedException.getMessage());
+            doJsonResponse(response, res);
         } catch (Exception e) {
-            doJsonResponse(
-                    response,
-                    Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage())
-            );
+            var res = Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+            doJsonResponse(response, res);
         }
     }
 }

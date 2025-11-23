@@ -8,6 +8,8 @@ import java.util.function.Consumer;
 /**
  * 实体工厂 当实体属性比较多时直接new比较复杂 交由factory完成
  *
+ * FIXME 实体不应该暴露setter，可以通过builder来构造。
+ *
  * @author Jinx
  */
 public interface EntityFactory<T extends Entity> {
