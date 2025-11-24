@@ -4,6 +4,8 @@ import com.qinghaotech.application.Result;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.AuthenticationException;
@@ -17,6 +19,8 @@ import static com.qinghaotech.infra.configuration.support.ManualResponseSupport.
 /**
  * @author Jinx
  */
+@Slf4j
+@RequiredArgsConstructor
 public class ExceptionHandlerFilter extends OncePerRequestFilter {
 
     @Override
@@ -25,15 +29,18 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain) {
         try {
             filterChain.doFilter(request, response);
-        } catch (AuthenticationException | IllegalArgumentException authenticationException) {
-            var res = Result.fail(HttpStatus.FORBIDDEN.value(), authenticationException.getMessage());
-            doJsonResponse(response, res);
-        } catch (AccessDeniedException accessDeniedException) {
-            var res = Result.fail(HttpStatus.UNAUTHORIZED.value(), accessDeniedException.getMessage());
-            doJsonResponse(response, res);
         } catch (Exception e) {
-            var res = Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
-            doJsonResponse(response, res);
+            log.error("An exception occurred on defaultSecurityFilterChain", e);
+            doJsonResponse(response, translateException(e));
         }
+    }
+
+    private Result<?> translateException(Exception e) {
+        return switch (e) {
+            case AuthenticationException ex -> Result.fail(HttpStatus.FORBIDDEN.value(), ex.getMessage());
+            case IllegalArgumentException ex -> Result.fail(HttpStatus.FORBIDDEN.value(), ex.getMessage());
+            case AccessDeniedException ex -> Result.fail(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
+            default -> Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        };
     }
 }

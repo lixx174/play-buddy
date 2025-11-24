@@ -88,6 +88,6 @@ public class TokenFilter extends OncePerRequestFilter {
      */
     private boolean isPermissible(@NonNull HttpServletRequest request) {
         String path = request.getRequestURI();
-        return PERMIT_PATTERNS.stream().noneMatch(url -> matcher.match(url, path));
+        return PERMIT_PATTERNS.stream().anyMatch(url -> matcher.match(url, path));
     }
 }

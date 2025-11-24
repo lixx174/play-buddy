@@ -40,7 +40,11 @@ public class WechatJdbcUserDetailService implements UserDetailsService {
         Assert.hasText(username, "Wechat js_code is empty!");
 
         var wechatApplet = configuration.getWechatApplet();
-        var request = new WechatLoginRequest(wechatApplet.getAppId(), wechatApplet.getAppSecret(), username);
+        var request = WechatLoginRequest.builder()
+                .appId(wechatApplet.getAppId())
+                .appSecret(wechatApplet.getAppSecret())
+                .loginCode(username)
+                .build();
         var response = client.login(request);
         if (!response.isSuccess()) {
             throw new AuthenticationServiceException("Fail to Request Wechat : %s".formatted(response.getErrMsg()));
@@ -50,7 +54,6 @@ public class WechatJdbcUserDetailService implements UserDetailsService {
                 .openId(response.getOpenId())
                 .unionId(response.getUnionId())
                 .build();
-
         Optional<User> user = userRepo.findByApplet(query);
         if (user.isEmpty()) {
             // 小程序用户 第一次登录进行注册

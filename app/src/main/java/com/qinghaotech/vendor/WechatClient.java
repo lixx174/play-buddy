@@ -1,14 +1,26 @@
 package com.qinghaotech.vendor;
 
-import org.springframework.web.service.annotation.HttpExchange;
-import org.springframework.web.service.annotation.PostExchange;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.service.annotation.GetExchange;
 
 /**
  * @author Jinx
  */
-@HttpExchange(url = "https://api.weixin.qq.com")
-public interface WechatClient{
+public interface WechatClient {
 
-    @PostExchange("/sns/jscode2session")
-    WechatLoginResponse login(WechatLoginRequest request);
+    default WechatLoginResponse login(WechatLoginRequest request) {
+        return login(
+                request.getAppId(),
+                request.getAppSecret(),
+                request.getLoginCode(),
+                request.getGrantType()
+        );
+    }
+
+    @GetExchange("/sns/jscode2session")
+    WechatLoginResponse login(@RequestParam("appid") String appId,
+                              @RequestParam("secret") String secret,
+                              @RequestParam("js_code") String jsCode,
+                              @RequestParam("grant_type") String grantType);
+
 }

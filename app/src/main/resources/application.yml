@@ -9,3 +9,8 @@ spring:
     url: jdbc:mysql://localhost:3306/play_buddy?useUnicode=true&characterEncoding=utf-8&isSSL=false
     username: root
     password: root
+
+application:
+  wechat-applet:
+    app-id: 111
+    app-secret: 111

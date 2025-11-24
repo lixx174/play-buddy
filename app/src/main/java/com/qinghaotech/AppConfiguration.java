@@ -2,6 +2,7 @@ package com.qinghaotech;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -9,13 +10,14 @@ import org.springframework.context.annotation.Configuration;
  */
 @Getter
 @Configuration
+@ConfigurationProperties(prefix = "application")
 public class AppConfiguration {
 
     private final WechatApplet wechatApplet = new WechatApplet();
 
     @Getter
     @Setter
-    public static class WechatApplet{
+    public static class WechatApplet {
         /**
          * 微信小程序 appId
          */
