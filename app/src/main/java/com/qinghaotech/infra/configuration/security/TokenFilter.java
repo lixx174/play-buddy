@@ -1,5 +1,6 @@
 package com.qinghaotech.infra.configuration.security;
 
+import com.qinghaotech.application.support.UserDetail;
 import com.qinghaotech.domain.primitive.Credential;
 import com.qinghaotech.domain.repository.CredentialQuery;
 import com.qinghaotech.domain.repository.UserRepository;
@@ -11,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.InvalidBearerTokenException;
 import org.springframework.util.AntPathMatcher;
@@ -23,6 +22,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+
+import static org.springframework.security.authentication.UsernamePasswordAuthenticationToken.authenticated;
 
 
 /**
@@ -67,9 +68,7 @@ public class TokenFilter extends OncePerRequestFilter {
                 }
 
                 UserDetail userDetail = new UserDetail(user.get());
-                Authentication authentication = UsernamePasswordAuthenticationToken.authenticated(
-                        userDetail, credential, Collections.emptyList()
-                );
+                var authentication = authenticated(userDetail, credential, Collections.emptyList());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
                 filterChain.doFilter(request, response);

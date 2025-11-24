@@ -1,6 +1,7 @@
 package com.qinghaotech.infra.configuration.security;
 
 import com.qinghaotech.AppConfiguration;
+import com.qinghaotech.application.support.UserDetail;
 import com.qinghaotech.domain.entity.User;
 import com.qinghaotech.domain.factory.EntityFactory;
 import com.qinghaotech.domain.primitive.Applet;

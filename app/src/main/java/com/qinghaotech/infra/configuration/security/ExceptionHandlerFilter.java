@@ -8,10 +8,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import java.nio.file.AccessDeniedException;
 
 import static com.qinghaotech.infra.configuration.support.ManualResponseSupport.doJsonResponse;
 

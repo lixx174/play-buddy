@@ -20,6 +20,16 @@ public class DefaultUserRepository implements UserRepository {
     }
 
     @Override
+    public long findCountByNickname(String nickname) {
+        return 0;
+    }
+
+    @Override
+    public Optional<User> findById(Integer id) {
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<User> findByApplet(AppletQuery applet) {
         return Optional.empty();
     }

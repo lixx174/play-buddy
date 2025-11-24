@@ -10,7 +10,16 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Status {
 
+    /**
+     * 开启
+     */
     ENABLE,
+    /**
+     * 关闭
+     */
     DISABLE,
+    /**
+     * 禁用
+     */
     FORBIDDEN
 }

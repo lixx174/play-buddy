@@ -1,4 +1,4 @@
-package com.qinghaotech.infra.configuration.security;
+package com.qinghaotech.application.support;
 
 import com.qinghaotech.domain.entity.User;
 import com.qinghaotech.domain.primitive.Status;
@@ -51,5 +51,10 @@ public record UserDetail(User user) implements UserDetails {
     @Override
     public boolean isEnabled() {
         return user.getStatus() == Status.ENABLE;
+    }
+
+
+    public Integer getId() {
+        return user.getId();
     }
 }

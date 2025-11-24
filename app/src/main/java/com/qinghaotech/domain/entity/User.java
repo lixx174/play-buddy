@@ -1,7 +1,9 @@
 package com.qinghaotech.domain.entity;
 
+import com.qinghaotech.domain.exception.UnprocessableException;
 import com.qinghaotech.domain.primitive.Credential;
 import com.qinghaotech.domain.primitive.Status;
+import com.qinghaotech.domain.service.UserDomainService;
 import lombok.Getter;
 import org.springframework.util.Assert;
 
@@ -11,15 +13,15 @@ import org.springframework.util.Assert;
 @Getter
 public class User implements Entity {
 
-    private Integer id;
+    private final Integer id;
 
     private String nickname;
 
     private String avatar;
 
-    private Status status;
+    private final Status status;
 
-    private Account account;
+    private final Account account;
 
     private Credential credential;
 
@@ -41,6 +43,34 @@ public class User implements Entity {
     public void issueCredential(Credential credential) {
         Assert.notNull(credential, "Credential cannot be null");
         this.credential = credential;
+    }
+
+    /***
+     * 改名
+     * @param nickname 新昵称
+     * @param service 领域服务
+     */
+    public void rename(String nickname, UserDomainService service) {
+        Assert.hasText(nickname, "nickname cannot be empty");
+        if (service.isNicknameExisted(nickname)) {
+            throw new UnprocessableException("Input nickname [%s] already existed".formatted(nickname));
+        }
+
+        // FIXME 昵称合法性校验
+        this.nickname = nickname;
+    }
+
+    /**
+     * 更换头像
+     *
+     * @param avatar  新头像
+     * @param service 领域服务
+     */
+    public void changeAvatar(String avatar, UserDomainService service) {
+        Assert.hasText(avatar, "avatar cannot be empty");
+
+        // FIXME 色图校验
+        this.avatar = avatar;
     }
 
 
