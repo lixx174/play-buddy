@@ -1,0 +1,6 @@
+### 微信小程序登录
+POST http://localhost:8080/login?username=111
+
+
+### ping
+GET http://localhost:8080/ping
