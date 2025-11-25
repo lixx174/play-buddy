@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @AllArgsConstructor
+@Deprecated
 public class Period {
 
     private LocalDateTime startAt;

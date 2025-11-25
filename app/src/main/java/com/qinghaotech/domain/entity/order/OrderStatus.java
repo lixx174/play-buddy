@@ -1,4 +1,4 @@
-package com.qinghaotech.domain.primitive;
+package com.qinghaotech.domain.entity.order;
 
 /**
  * @author Jinx
@@ -14,9 +14,9 @@ public enum OrderStatus {
      */
     PAID,
     /**
-     * 已发货
+     * 服务中
      */
-    SHIPPED,
+    PROCESSING,
     /**
      * 已完成
      */

@@ -5,6 +5,7 @@ package com.qinghaotech.domain.primitive;
  *
  * @author Jinx
  */
+@Deprecated
 public enum Coupons {
 
     /**
@@ -22,5 +23,5 @@ public enum Coupons {
     /**
      * 限时优惠券：在特定时间内有效的优惠券。
      */
-    LIMITED_TIME;
+    LIMITED_TIME
 }

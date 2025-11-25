@@ -5,6 +5,7 @@ import com.qinghaotech.domain.entity.User;
 import com.qinghaotech.domain.exception.UnprocessableException;
 import com.qinghaotech.domain.factory.EntityFactory;
 import com.qinghaotech.domain.primitive.Applet;
+import com.qinghaotech.domain.primitive.Gender;
 import com.qinghaotech.domain.primitive.Status;
 import com.qinghaotech.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,7 @@ public class UserFactory implements EntityFactory<User> {
         return User.builder()
                 .nickname("微信用户_%010d".formatted(count))
                 .avatar("https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132")
+                .gender(Gender.UNKNOWN)
                 .status(Status.ENABLE)
                 .account(account)
                 .build();

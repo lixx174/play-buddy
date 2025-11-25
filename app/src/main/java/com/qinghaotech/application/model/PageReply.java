@@ -1,5 +1,6 @@
 package com.qinghaotech.application.model;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -34,5 +35,9 @@ public class PageReply<T> {
 
     public static <T> PageReply<T> of(Number current, Number size, Number pages, Collection<T> records) {
         return new PageReply<>(current, size, pages, records);
+    }
+
+    public static <T> PageReply<T> of(Page<T> page) {
+        return of(page.getCurrent(), page.getSize(), page.getPages(), page.getRecords());
     }
 }

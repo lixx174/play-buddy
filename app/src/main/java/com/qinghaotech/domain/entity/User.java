@@ -2,6 +2,7 @@ package com.qinghaotech.domain.entity;
 
 import com.qinghaotech.domain.exception.UnprocessableException;
 import com.qinghaotech.domain.primitive.Credential;
+import com.qinghaotech.domain.primitive.Gender;
 import com.qinghaotech.domain.primitive.Status;
 import com.qinghaotech.domain.service.UserDomainService;
 import lombok.Getter;
@@ -19,6 +20,8 @@ public class User implements Entity {
 
     private String avatar;
 
+    private Gender gender;
+
     private final Status status;
 
     private final Account account;
@@ -29,6 +32,7 @@ public class User implements Entity {
         id = builder.id;
         nickname = builder.nickname;
         avatar = builder.avatar;
+        gender = builder.gender;
         status = builder.status;
         account = builder.account;
         credential = builder.credential;
@@ -73,6 +77,18 @@ public class User implements Entity {
         this.avatar = avatar;
     }
 
+    /**
+     * 修改性别
+     *
+     * @param gender 新性别
+     */
+    public void changeAvatar(Gender gender) {
+        Assert.notNull(gender, "gender cannot be null");
+        Assert.isTrue(gender != Gender.UNKNOWN, "gender cannot be UNKNOWN");
+
+        this.gender = gender;
+    }
+
 
     public static Builder builder() {
         return new Builder();
@@ -82,6 +98,7 @@ public class User implements Entity {
         private Integer id;
         private String nickname;
         private String avatar;
+        private Gender gender;
         private Status status;
         private Account account;
         private Credential credential;
@@ -103,6 +120,12 @@ public class User implements Entity {
         public Builder avatar(String avatar) {
             Assert.hasText(avatar, "avatar can't be empty");
             this.avatar = avatar;
+            return this;
+        }
+
+        public Builder gender(Gender gender) {
+            Assert.notNull(gender, "gender can't be null");
+            this.gender = gender;
             return this;
         }
 

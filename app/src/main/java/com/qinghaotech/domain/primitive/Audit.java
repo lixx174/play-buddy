@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 /**
  * @author Jinx
  */
+@Deprecated
 public class Audit {
 
     private LocalDateTime createAt;
