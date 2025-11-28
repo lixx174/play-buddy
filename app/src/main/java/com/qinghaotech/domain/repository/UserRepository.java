@@ -7,7 +7,7 @@ import java.util.Optional;
 /**
  * @author Jinx
  */
-public interface UserRepository {
+public interface UserRepository extends CurdRepository<User> {
 
     /**
      * 查询用户数量
@@ -25,14 +25,6 @@ public interface UserRepository {
     long findCountByNickname(String nickname);
 
     /**
-     * 通过id查询用户
-     *
-     * @param id 用户id
-     * @return 用户领域
-     */
-    Optional<User> findById(Integer id);
-
-    /**
      * 通过小程序信息查询用户
      *
      * @param applet 小程序信息
@@ -47,11 +39,4 @@ public interface UserRepository {
      * @return 用户领域
      */
     Optional<User> findByCredential(CredentialQuery credential);
-
-    /**
-     * 保存
-     *
-     * @param user 用户领域
-     */
-    void save(User user);
 }

@@ -1,4 +1,4 @@
-package com.qinghaotech.infra;
+package com.qinghaotech.infra.configuration;
 
 import com.qinghaotech.application.Result;
 import com.qinghaotech.domain.exception.UnprocessableException;

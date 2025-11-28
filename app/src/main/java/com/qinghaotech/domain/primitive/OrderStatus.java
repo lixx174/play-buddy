@@ -1,4 +1,4 @@
-package com.qinghaotech.domain.entity.order;
+package com.qinghaotech.domain.primitive;
 
 /**
  * @author Jinx

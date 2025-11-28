@@ -5,6 +5,7 @@ import com.qinghaotech.domain.primitive.Credential;
 import com.qinghaotech.domain.primitive.Gender;
 import com.qinghaotech.domain.primitive.Status;
 import com.qinghaotech.domain.service.UserDomainService;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.util.Assert;
 
@@ -28,14 +29,24 @@ public class User implements Entity {
 
     private Credential credential;
 
-    private User(Builder builder) {
-        id = builder.id;
-        nickname = builder.nickname;
-        avatar = builder.avatar;
-        gender = builder.gender;
-        status = builder.status;
-        account = builder.account;
-        credential = builder.credential;
+    @Builder
+    private User(Integer id, String nickname, String avatar, Gender gender, Status status, Account account, Credential credential) {
+        Assert.hasText(nickname, "nickname can't be empty");
+        Assert.hasText(avatar, "avatar can't be empty");
+        Assert.notNull(gender, "gender can't be null");
+        Assert.notNull(status, "status can't be null");
+        Assert.notNull(account, "account can't be null");
+        if (id != null) {
+            Assert.notNull(credential, "credential can't be null");
+        }
+
+        this.id = id;
+        this.nickname = nickname;
+        this.avatar = avatar;
+        this.gender = gender;
+        this.status = status;
+        this.account = account;
+        this.credential = credential;
     }
 
 
@@ -82,73 +93,10 @@ public class User implements Entity {
      *
      * @param gender 新性别
      */
-    public void changeAvatar(Gender gender) {
+    public void changeGender(Gender gender) {
         Assert.notNull(gender, "gender cannot be null");
         Assert.isTrue(gender != Gender.UNKNOWN, "gender cannot be UNKNOWN");
 
         this.gender = gender;
-    }
-
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public static final class Builder {
-        private Integer id;
-        private String nickname;
-        private String avatar;
-        private Gender gender;
-        private Status status;
-        private Account account;
-        private Credential credential;
-
-        private Builder() {
-        }
-
-        public Builder id(Integer id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder nickname(String nickname) {
-            Assert.hasText(nickname, "nickname can't be empty");
-            this.nickname = nickname;
-            return this;
-        }
-
-        public Builder avatar(String avatar) {
-            Assert.hasText(avatar, "avatar can't be empty");
-            this.avatar = avatar;
-            return this;
-        }
-
-        public Builder gender(Gender gender) {
-            Assert.notNull(gender, "gender can't be null");
-            this.gender = gender;
-            return this;
-        }
-
-
-        public Builder status(Status status) {
-            Assert.notNull(status, "status can't be null");
-            this.status = status;
-            return this;
-        }
-
-        public Builder account(Account account) {
-            Assert.notNull(account, "account can't be null");
-            this.account = account;
-            return this;
-        }
-
-        public Builder credential(Credential credential) {
-            this.credential = credential;
-            return this;
-        }
-
-        public User build() {
-            return new User(this);
-        }
     }
 }

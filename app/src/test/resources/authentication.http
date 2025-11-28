@@ -1,6 +1,11 @@
 ### 微信小程序登录
-POST http://localhost:8080/login?username=111
+POST {{host}}/login?username=111
+
+> {%
+    client.log()
+    client.global.set("token", response.body.data.accessToken);
+%}
 
 
 ### ping
-GET http://localhost:8080/ping
+GET {{host}}/ping
