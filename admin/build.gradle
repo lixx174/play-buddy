@@ -1,4 +1,4 @@
-description = '后端管理端'
+description = '管理端'
 
 compileJava {
     options.compilerArgs += [
