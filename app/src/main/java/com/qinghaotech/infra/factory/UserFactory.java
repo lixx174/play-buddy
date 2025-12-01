@@ -1,7 +1,7 @@
 package com.qinghaotech.infra.factory;
 
-import com.qinghaotech.domain.entity.Account;
-import com.qinghaotech.domain.entity.User;
+import com.qinghaotech.domain.entity.account.Account;
+import com.qinghaotech.domain.entity.user.User;
 import com.qinghaotech.domain.exception.UnprocessableException;
 import com.qinghaotech.domain.factory.EntityFactory;
 import com.qinghaotech.domain.primitive.Applet;

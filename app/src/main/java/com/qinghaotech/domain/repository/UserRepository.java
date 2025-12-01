@@ -1,13 +1,13 @@
 package com.qinghaotech.domain.repository;
 
-import com.qinghaotech.domain.entity.User;
+import com.qinghaotech.domain.entity.user.User;
 
 import java.util.Optional;
 
 /**
  * @author Jinx
  */
-public interface UserRepository extends CurdRepository<User> {
+public interface UserRepository extends CurdRepository<Integer, User> {
 
     /**
      * 查询用户数量

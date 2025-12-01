@@ -1,20 +1,18 @@
 package com.qinghaotech.application.model.dto;
 
-import com.qinghaotech.domain.primitive.Gender;
 import com.qinghaotech.domain.primitive.Status;
-
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Jinx
  */
-public class CompanionDto {
+@Getter
+@Setter
+public class GameDto {
+
     private Integer id;
     private String name;
-    private Gender gender;
     private String avatar;
     private Status status;
-    private Float starLevel;
-    private List<String> tags;
-    private List<GameDto> games;
 }

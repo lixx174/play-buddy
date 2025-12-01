@@ -1,5 +1,7 @@
-package com.qinghaotech.domain.entity;
+package com.qinghaotech.domain.entity.user;
 
+import com.qinghaotech.domain.entity.Entity;
+import com.qinghaotech.domain.entity.account.Account;
 import com.qinghaotech.domain.exception.UnprocessableException;
 import com.qinghaotech.domain.primitive.Credential;
 import com.qinghaotech.domain.primitive.Gender;
@@ -98,5 +100,11 @@ public class User implements Entity {
         Assert.isTrue(gender != Gender.UNKNOWN, "gender cannot be UNKNOWN");
 
         this.gender = gender;
+    }
+
+    public void assertEnabled() {
+        if (status != Status.ENABLE) {
+            throw new UnprocessableException("用户[%s] 未启用".formatted(nickname));
+        }
     }
 }

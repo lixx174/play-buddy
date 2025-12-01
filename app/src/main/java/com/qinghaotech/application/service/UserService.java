@@ -3,7 +3,7 @@ package com.qinghaotech.application.service;
 import com.qinghaotech.application.model.command.UserProfileModifyCommand;
 import com.qinghaotech.application.model.dto.UserDto;
 import com.qinghaotech.application.repository.UserQueryRepository;
-import com.qinghaotech.domain.entity.User;
+import com.qinghaotech.domain.entity.user.User;
 import com.qinghaotech.domain.repository.UserRepository;
 import com.qinghaotech.domain.service.UserDomainService;
 import lombok.RequiredArgsConstructor;

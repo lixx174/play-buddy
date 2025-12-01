@@ -4,7 +4,7 @@ import com.qinghaotech.application.Result;
 import com.qinghaotech.application.converter.CredentialConverter;
 import com.qinghaotech.application.model.dto.CredentialDto;
 import com.qinghaotech.application.support.UserDetail;
-import com.qinghaotech.domain.entity.User;
+import com.qinghaotech.domain.entity.user.User;
 import com.qinghaotech.domain.primitive.Credential;
 import com.qinghaotech.domain.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;

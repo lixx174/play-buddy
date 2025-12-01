@@ -1,5 +1,6 @@
-package com.qinghaotech.domain.entity;
+package com.qinghaotech.domain.entity.account;
 
+import com.qinghaotech.domain.entity.Entity;
 import com.qinghaotech.domain.primitive.Applet;
 import com.qinghaotech.domain.primitive.Status;
 import lombok.Getter;
@@ -13,9 +14,9 @@ import org.springframework.util.Assert;
 @Getter
 public class Account implements Entity {
 
-    private Integer id;
+    private final Integer id;
 
-    private Applet applet;
+    private final Applet applet;
 
     private Status status;
 

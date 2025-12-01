@@ -1,8 +1,8 @@
 package com.qinghaotech.domain.entity.order;
 
-import com.qinghaotech.domain.entity.Companion;
-import com.qinghaotech.domain.entity.User;
-import com.qinghaotech.domain.primitive.Game;
+import com.qinghaotech.domain.entity.companion.Companion;
+import com.qinghaotech.domain.entity.game.Game;
+import com.qinghaotech.domain.entity.user.User;
 import com.qinghaotech.domain.primitive.OrderStatus;
 import com.qinghaotech.domain.primitive.order.BuyerContact;
 import com.qinghaotech.domain.primitive.order.OrderItem;

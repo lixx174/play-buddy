@@ -1,6 +1,6 @@
 package com.qinghaotech.infra.repository;
 
-import com.qinghaotech.domain.entity.User;
+import com.qinghaotech.domain.entity.user.User;
 import com.qinghaotech.domain.repository.AppletQuery;
 import com.qinghaotech.domain.repository.CredentialQuery;
 import com.qinghaotech.domain.repository.UserRepository;

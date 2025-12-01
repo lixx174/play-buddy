@@ -1,6 +1,5 @@
 package com.qinghaotech.application.model.command;
 
-import com.qinghaotech.domain.primitive.Game;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +17,7 @@ public class OrderCreateCommand {
     /**
      * 游戏
      */
-    private Game game;
+    private Integer gameId;
     /**
      * 所选商品id
      */

@@ -7,13 +7,13 @@ import java.util.Optional;
 /**
  * @author Jinx
  */
-public interface CurdRepository<Entity> {
+public interface CurdRepository<ID, Entity> {
 
-    Optional<Entity> findById(Integer id);
+    Optional<Entity> findById(ID id);
 
     void save(Entity entity);
 
-    default Entity findByIdSafely(Integer id) {
+    default Entity findByIdSafely(ID id) {
         Optional<Entity> entity = findById(id);
         if (entity.isEmpty()) {
             throw new IllegalArgumentException("%s not existed: %s".formatted(getEntityName(), id));

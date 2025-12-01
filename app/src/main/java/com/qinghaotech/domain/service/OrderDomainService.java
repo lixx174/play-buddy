@@ -1,9 +1,10 @@
 package com.qinghaotech.domain.service;
 
-import com.qinghaotech.domain.entity.Companion;
-import com.qinghaotech.domain.entity.User;
+import com.qinghaotech.domain.entity.companion.Companion;
+import com.qinghaotech.domain.entity.game.Game;
 import com.qinghaotech.domain.entity.order.Order;
-import com.qinghaotech.domain.primitive.Game;
+import com.qinghaotech.domain.entity.product.Variant;
+import com.qinghaotech.domain.entity.user.User;
 import com.qinghaotech.domain.primitive.OrderStatus;
 import com.qinghaotech.domain.primitive.order.BuyerContact;
 import com.qinghaotech.domain.primitive.order.OrderItem;
@@ -17,12 +18,21 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderDomainService {
 
+    private final IdGenerator uuidGenerator;
 
-    public Order create(Game game, OrderItem item, Companion companion, User buyer, BuyerContact buyerContact) {
 
+    public Order create(Game game, Variant variant, OrderItem item, Companion companion, User buyer, BuyerContact buyerContact) {
+        game.assertEnabled();
+
+        variant.deductInventory(item.count());
+
+        companion.assertEnabled();
+        companion.assertSupport(game);
+
+        buyer.assertEnabled();
 
         return Order.builder()
-                .no()
+                .no(uuidGenerator.generateOrderNumber())
                 .game(game)
                 .companion(companion)
                 .item(item)
@@ -30,8 +40,5 @@ public class OrderDomainService {
                 .status(OrderStatus.PENDING)
                 .buyerContact(buyerContact)
                 .build();
-
     }
-
-
 }

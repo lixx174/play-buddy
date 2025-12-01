@@ -5,6 +5,6 @@ import com.qinghaotech.domain.entity.product.Variant;
 /**
  * @author Jinx
  */
-public interface ProductRepository extends CurdRepository<Variant> {
+public interface ProductRepository extends CurdRepository<Integer, Variant> {
 
 }

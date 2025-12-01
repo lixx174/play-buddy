@@ -1,6 +1,6 @@
 package com.qinghaotech.application.support;
 
-import com.qinghaotech.domain.entity.User;
+import com.qinghaotech.domain.entity.user.User;
 import com.qinghaotech.domain.primitive.Status;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
