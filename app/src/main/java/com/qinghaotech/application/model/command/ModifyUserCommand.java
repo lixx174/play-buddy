@@ -8,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class UserProfileModifyCommand {
+public class ModifyUserCommand {
 
     /**
      * 昵称

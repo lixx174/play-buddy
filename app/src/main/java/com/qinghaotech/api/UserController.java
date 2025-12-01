@@ -1,7 +1,7 @@
 package com.qinghaotech.api;
 
 import com.qinghaotech.application.Result;
-import com.qinghaotech.application.model.command.UserProfileModifyCommand;
+import com.qinghaotech.application.model.command.ModifyUserCommand;
 import com.qinghaotech.application.model.dto.UserDto;
 import com.qinghaotech.application.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +41,7 @@ public class UserController {
      * @apiNote 一般用于微信信息同步，也可以自定义。
      */
     @PutMapping("/modify")
-    public Result<Void> modify(@RequestBody UserProfileModifyCommand command) {
+    public Result<Void> modify(@RequestBody ModifyUserCommand command) {
         return Result.succeed(() -> service.modify(command));
     }
 }

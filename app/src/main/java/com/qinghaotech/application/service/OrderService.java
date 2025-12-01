@@ -1,6 +1,6 @@
 package com.qinghaotech.application.service;
 
-import com.qinghaotech.application.model.command.OrderCreateCommand;
+import com.qinghaotech.application.model.command.CreateOrderCommand;
 import com.qinghaotech.application.support.SecuritySupport;
 import com.qinghaotech.domain.entity.companion.Companion;
 import com.qinghaotech.domain.entity.game.Game;
@@ -32,7 +32,7 @@ public class OrderService {
     private final GameRepository gameRepository;
     private final OrderDomainService orderDomainService;
 
-    public void create(OrderCreateCommand command) {
+    public void create(CreateOrderCommand command) {
         OrderItem orderItem = new OrderItem(command.getVariantId(), command.getVariantCount());
         var buyerContact = new BuyerContact(command.getGameContactInfo(), command.getContactInfo(), command.getRemark());
 

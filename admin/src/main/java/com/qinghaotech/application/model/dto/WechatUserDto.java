@@ -1,5 +1,6 @@
 package com.qinghaotech.application.model.dto;
 
+import com.qinghaotech.domain.primitive.Gender;
 import com.qinghaotech.domain.primitive.Status;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,8 @@ public class WechatUserDto {
     private String nickname;
 
     private String avatar;
+
+    private Gender gender;
 
     private Status status;
 }

@@ -8,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class OrderCreateCommand {
+public class CreateOrderCommand {
 
     /**
      * 陪玩师id

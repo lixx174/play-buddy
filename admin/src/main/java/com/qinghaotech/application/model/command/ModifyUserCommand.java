@@ -3,5 +3,5 @@ package com.qinghaotech.application.model.command;
 /**
  * @author Jinx
  */
-public class UserModifyCommand {
+public class ModifyUserCommand {
 }

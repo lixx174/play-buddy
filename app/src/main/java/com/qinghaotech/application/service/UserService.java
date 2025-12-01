@@ -1,6 +1,6 @@
 package com.qinghaotech.application.service;
 
-import com.qinghaotech.application.model.command.UserProfileModifyCommand;
+import com.qinghaotech.application.model.command.ModifyUserCommand;
 import com.qinghaotech.application.model.dto.UserDto;
 import com.qinghaotech.application.repository.UserQueryRepository;
 import com.qinghaotech.domain.entity.user.User;
@@ -26,7 +26,7 @@ public class UserService {
         return userQueryRepository.findById(getUserId());
     }
 
-    public void modify(UserProfileModifyCommand command) {
+    public void modify(ModifyUserCommand command) {
         User user = userRepository.findById(getUserId()).orElseThrow();
 
         user.rename(command.getNickname(), userDomainService);

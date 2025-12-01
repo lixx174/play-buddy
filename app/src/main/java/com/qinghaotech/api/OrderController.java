@@ -1,7 +1,7 @@
 package com.qinghaotech.api;
 
 import com.qinghaotech.application.Result;
-import com.qinghaotech.application.model.command.OrderCreateCommand;
+import com.qinghaotech.application.model.command.CreateOrderCommand;
 import com.qinghaotech.application.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +27,7 @@ public class OrderController {
      * @return 陪玩师简介分页
      */
     @GetMapping("/create")
-    public Result<Void> create(@RequestBody OrderCreateCommand command) {
+    public Result<Void> create(@RequestBody CreateOrderCommand command) {
         return Result.succeed(() -> service.create(command));
     }
 }

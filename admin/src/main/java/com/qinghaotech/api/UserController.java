@@ -2,8 +2,8 @@ package com.qinghaotech.api;
 
 import com.qinghaotech.application.Result;
 import com.qinghaotech.application.model.PageReply;
-import com.qinghaotech.application.model.command.UserCreateCommand;
-import com.qinghaotech.application.model.command.UserModifyCommand;
+import com.qinghaotech.application.model.command.CreateUserCommand;
+import com.qinghaotech.application.model.command.ModifyUserCommand;
 import com.qinghaotech.application.model.dto.UserDto;
 import com.qinghaotech.application.model.query.UserPageQuery;
 import com.qinghaotech.application.service.UserService;
@@ -58,7 +58,7 @@ public class UserController {
      * @return void
      */
     @PostMapping("/create")
-    public Result<Void> create(@RequestBody UserCreateCommand command) {
+    public Result<Void> create(@RequestBody CreateUserCommand command) {
         return Result.succeed(() -> service.create(command));
     }
 
@@ -69,7 +69,7 @@ public class UserController {
      * @return void
      */
     @PostMapping("/modify")
-    public Result<Void> modify(@RequestBody UserModifyCommand command) {
+    public Result<Void> modify(@RequestBody ModifyUserCommand command) {
         return Result.succeed(() -> service.modify(command));
     }
 

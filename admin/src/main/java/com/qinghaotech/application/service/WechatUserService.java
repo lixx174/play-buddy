@@ -1,6 +1,7 @@
 package com.qinghaotech.application.service;
 
 import com.qinghaotech.application.model.PageReply;
+import com.qinghaotech.application.model.command.ModifyWechatUserCommand;
 import com.qinghaotech.application.model.dto.WechatUserDto;
 import com.qinghaotech.application.model.query.WechatUserPageQuery;
 import com.qinghaotech.application.repository.WechatUserQueryRepository;
@@ -23,5 +24,8 @@ public class WechatUserService {
 
     public WechatUserDto detail(Integer id) {
         return wechatUserQueryRepository.findById(id);
+    }
+
+    public void modify(ModifyWechatUserCommand command) {
     }
 }
