@@ -20,7 +20,6 @@ public class Companion {
      * 持有系统user引用，陪玩师的基本信息使用user的基本信息。
      */
     private User user;
-
     /**
      * 陪玩师的账号状态不会影响到关联user的状态，但是user会影响到陪玩师。
      */
