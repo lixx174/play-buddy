@@ -9,6 +9,7 @@ import com.qinghaotech.domain.primitive.Gender;
 import com.qinghaotech.domain.primitive.Status;
 import com.qinghaotech.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Consumer;
@@ -23,11 +24,7 @@ public class UserFactory implements EntityFactory<User> {
     private final UserRepository repo;
 
     @Override
-    public User create(Object source, Consumer<User> callback) {
-        if (source == null) {
-            throw new UnprocessableException("Parameter source can't be null");
-        }
-
+    public User create(@NonNull Object source, Consumer<User> callback) {
         User user = switch (source) {
             case Applet applet -> createByApplet(applet);
             default -> throw new UnprocessableException("Type {%s} not support".formatted(source.getClass()));

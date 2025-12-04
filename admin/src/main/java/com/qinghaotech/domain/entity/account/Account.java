@@ -1,39 +1,39 @@
 package com.qinghaotech.domain.entity.account;
 
 import com.qinghaotech.domain.Entity;
-import com.qinghaotech.domain.primitive.Applet;
 import com.qinghaotech.domain.primitive.Status;
 import lombok.Getter;
 import org.springframework.util.Assert;
 
 /**
- * FIXME 注意小程序选不同手机号登录场景
- *
  * @author Jinx
  */
 @Getter
 public class Account implements Entity {
 
     private final Integer id;
-
-    private final Applet applet;
-
+    private final String username;
+    private final String password;
     private Status status;
 
-    public Account(Applet applet) {
-        this(null, applet, Status.ENABLE);
+    public Account(String username, String password) {
+        this(null, username, password, Status.ENABLE.name());
     }
 
-    public Account(Integer id, Applet applet, Status status) {
-        Assert.notNull(applet, "applet cannot be null");
-        Assert.notNull(status, "status cannot be null");
+    public Account(Integer id, String username, String password, String status) {
+        Assert.notNull(username, "username为空");
+        Assert.notNull(password, "password为空");
+        Assert.notNull(status, "status为空");
 
         this.id = id;
-        this.applet = applet;
-        this.status = status;
+        this.username = username;
+        this.password = password;
+        this.status = Status.valueOf(status);
     }
 
-    public void changesStatus(Status status) {
-        this.status = status;
+    public void changesStatus(String status) {
+        if (status != null) {
+            this.status = Status.valueOf(status);
+        }
     }
 }

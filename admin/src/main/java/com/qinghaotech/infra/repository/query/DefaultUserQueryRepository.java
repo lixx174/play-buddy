@@ -1,4 +1,4 @@
-package com.qinghaotech.infra;
+package com.qinghaotech.infra.repository.query;
 
 import com.qinghaotech.application.model.dto.UserDto;
 import com.qinghaotech.application.repository.UserQueryRepository;

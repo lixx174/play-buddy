@@ -1,7 +1,6 @@
 package com.qinghaotech.application.support;
 
 import com.qinghaotech.domain.entity.user.User;
-import com.qinghaotech.domain.primitive.Status;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
@@ -25,12 +24,12 @@ public record UserDetail(User user) implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return user.getUsername();
     }
 
     @Override
@@ -40,7 +39,7 @@ public record UserDetail(User user) implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return user.getStatus() != Status.FORBIDDEN;
+        return !user.isForbidden();
     }
 
     @Override
@@ -50,7 +49,7 @@ public record UserDetail(User user) implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getStatus() == Status.ENABLE;
+        return user.isEnable();
     }
 
     public Integer getId() {

@@ -1,4 +1,4 @@
-package com.qinghaotech.infra.repository;
+package com.qinghaotech.infra.repository.query;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qinghaotech.application.model.PageQuery;

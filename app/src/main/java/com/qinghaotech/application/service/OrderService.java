@@ -36,10 +36,10 @@ public class OrderService {
         OrderItem orderItem = new OrderItem(command.getVariantId(), command.getVariantCount());
         var buyerContact = new BuyerContact(command.getGameContactInfo(), command.getContactInfo(), command.getRemark());
 
-        Game game = gameRepository.findByIdSafely(command.getGameId());
-        Variant variant = productRepository.findByIdSafely(command.getVariantId());
-        Companion companion = companionRepository.findByIdSafely(command.getCompanionId());
-        User buyer = userRepository.findByIdSafely(SecuritySupport.getUserId());
+        Game game = gameRepository.findByIdOrElseThrow(command.getGameId());
+        Variant variant = productRepository.findByIdOrElseThrow(command.getVariantId());
+        Companion companion = companionRepository.findByIdOrElseThrow(command.getCompanionId());
+        User buyer = userRepository.findByIdOrElseThrow(SecuritySupport.getUserId());
 
         Order order = orderDomainService.create(game, variant, orderItem, companion, buyer, buyerContact);
 

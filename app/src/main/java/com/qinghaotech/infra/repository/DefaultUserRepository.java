@@ -43,4 +43,9 @@ public class DefaultUserRepository implements UserRepository {
     public void save(User user) {
 
     }
+
+    @Override
+    public void remove(User user) {
+
+    }
 }

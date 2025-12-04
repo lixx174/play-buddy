@@ -22,4 +22,9 @@ public class DefaultCompanionRepository implements CompanionRepository {
     public void save(Companion companion) {
 
     }
+
+    @Override
+    public void remove(Companion companion) {
+
+    }
 }

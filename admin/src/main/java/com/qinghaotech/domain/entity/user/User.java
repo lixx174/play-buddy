@@ -2,12 +2,15 @@ package com.qinghaotech.domain.entity.user;
 
 import com.qinghaotech.domain.Entity;
 import com.qinghaotech.domain.entity.account.Account;
+import com.qinghaotech.domain.entity.role.Role;
 import com.qinghaotech.domain.exception.UnprocessableException;
 import com.qinghaotech.domain.primitive.Credential;
 import com.qinghaotech.domain.primitive.Status;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.util.Assert;
+
+import java.util.Collection;
 
 /**
  * @author Jinx
@@ -20,6 +23,7 @@ public class User implements Entity {
     private final String avatar;
     private final Status status;
     private final Account account;
+    private Collection<Role> roles;
     private Credential credential;
 
     @Builder
@@ -53,8 +57,24 @@ public class User implements Entity {
 
 
     public void assertEnabled() {
-        if (status != Status.ENABLE) {
+        if (!isEnable()) {
             throw new UnprocessableException("用户[%s] 未启用".formatted(name));
         }
+    }
+
+    public boolean isEnable() {
+        return status == Status.ENABLE;
+    }
+
+    public boolean isForbidden() {
+        return status == Status.FORBIDDEN;
+    }
+
+    public String getUsername() {
+        return account.getUsername();
+    }
+
+    public String getPassword() {
+        return account.getPassword();
     }
 }

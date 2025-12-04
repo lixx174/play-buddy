@@ -1,14 +1,12 @@
 package com.qinghaotech.domain.factory;
 
 import com.qinghaotech.domain.entity.Entity;
-import org.springframework.lang.Nullable;
+import org.springframework.lang.NonNull;
 
 import java.util.function.Consumer;
 
 /**
  * 实体工厂 当实体属性比较多时直接new比较复杂 交由factory完成
- *
- * FIXME 实体不应该暴露setter，可以通过builder来构造。
  *
  * @author Jinx
  */
@@ -21,15 +19,11 @@ public interface EntityFactory<T extends Entity> {
      * @param callback 创建完成前回调  当无法通过source完成时通过该回调让调用方自己构建
      * @return 实体
      */
-    T create(@Nullable Object source, Consumer<T> callback);
+    T create(@NonNull Object source, Consumer<T> callback);
 
     default T create(Object source) {
         // @formatter:off
         return create(source, entity -> {});
         // @formatter:on
-    }
-
-    default T create() {
-        return create(null);
     }
 }

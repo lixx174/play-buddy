@@ -22,4 +22,9 @@ public class DefaultGameRepository implements GameRepository {
     public void save(Game game) {
 
     }
+
+    @Override
+    public void remove(Game game) {
+
+    }
 }

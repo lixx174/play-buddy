@@ -33,7 +33,7 @@ public class UserController {
      * 分页
      *
      * @param query 分页条件
-     * @return 系统用户用户分页信息
+     * @return 系统用户分页信息
      */
     @GetMapping("/page")
     public Result<PageReply<UserDto>> page(UserPageQuery query) {

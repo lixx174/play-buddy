@@ -6,10 +6,12 @@ import com.qinghaotech.domain.exception.UnprocessableException;
 import com.qinghaotech.domain.primitive.Credential;
 import com.qinghaotech.domain.primitive.Gender;
 import com.qinghaotech.domain.primitive.Status;
-import com.qinghaotech.domain.service.UserDomainService;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
+
+import java.util.function.Predicate;
 
 /**
  * @author Jinx
@@ -65,29 +67,32 @@ public class User implements Entity {
     /***
      * 改名
      * @param nickname 新昵称
-     * @param service 领域服务
+     * @param action 断言回调，判断该昵称是否存在。
      */
-    public void rename(String nickname, UserDomainService service) {
-        Assert.hasText(nickname, "nickname cannot be empty");
-        if (service.isNicknameExisted(nickname)) {
-            throw new UnprocessableException("Input nickname [%s] already existed".formatted(nickname));
-        }
+    public void rename(String nickname, Predicate<String> action) {
+        if (StringUtils.hasText(nickname)) {
+            if (action.test(nickname)) {
+                throw new UnprocessableException("昵称:%s 已存在".formatted(nickname));
+            }
 
-        // FIXME 昵称合法性校验
-        this.nickname = nickname;
+            this.nickname = nickname;
+        }
     }
 
     /**
      * 更换头像
      *
-     * @param avatar  新头像
-     * @param service 领域服务
+     * @param avatar 新头像
+     * @param action 断言回调，判断该头像是否合法。
      */
-    public void changeAvatar(String avatar, UserDomainService service) {
-        Assert.hasText(avatar, "avatar cannot be empty");
+    public void changeAvatar(String avatar, Predicate<String> action) {
+        if (StringUtils.hasText(avatar)) {
+            if (action.test(avatar)) {
+                throw new UnprocessableException("头像:%s 不合法".formatted(nickname));
+            }
 
-        // FIXME 色图校验
-        this.avatar = avatar;
+            this.avatar = avatar;
+        }
     }
 
     /**
@@ -95,11 +100,10 @@ public class User implements Entity {
      *
      * @param gender 新性别
      */
-    public void changeGender(Gender gender) {
-        Assert.notNull(gender, "gender cannot be null");
-        Assert.isTrue(gender != Gender.UNKNOWN, "gender cannot be UNKNOWN");
-
-        this.gender = gender;
+    public void changeGender(String gender) {
+        if (StringUtils.hasText(gender)) {
+            this.gender = Gender.valueOf(gender);
+        }
     }
 
     public void assertEnabled() {

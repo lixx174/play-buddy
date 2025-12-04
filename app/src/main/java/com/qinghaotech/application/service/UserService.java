@@ -5,7 +5,6 @@ import com.qinghaotech.application.model.dto.UserDto;
 import com.qinghaotech.application.repository.UserQueryRepository;
 import com.qinghaotech.domain.entity.user.User;
 import com.qinghaotech.domain.repository.UserRepository;
-import com.qinghaotech.domain.service.UserDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,6 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserQueryRepository userQueryRepository;
-    private final UserDomainService userDomainService;
 
     public UserDto profile() {
         return userQueryRepository.findById(getUserId());
@@ -29,8 +27,9 @@ public class UserService {
     public void modify(ModifyUserCommand command) {
         User user = userRepository.findById(getUserId()).orElseThrow();
 
-        user.rename(command.getNickname(), userDomainService);
-        user.changeAvatar(command.getAvatar(), userDomainService);
+        user.rename(command.getNickname(), userRepository::isNicknameExisted);
+        // FIXME 色图校验
+        user.changeAvatar(command.getAvatar(), avatar -> true);
 
         userRepository.save(user);
     }
