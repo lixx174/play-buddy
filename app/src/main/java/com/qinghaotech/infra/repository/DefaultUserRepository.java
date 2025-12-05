@@ -14,28 +14,9 @@ import java.util.Optional;
 @Component
 public class DefaultUserRepository implements UserRepository {
 
-    @Override
-    public long findCount() {
-        return 0;
-    }
 
     @Override
-    public long findCountByNickname(String nickname) {
-        return 0;
-    }
-
-    @Override
-    public Optional<User> findById(Integer id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<User> findByApplet(AppletQuery applet) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<User> findByCredential(CredentialQuery credential) {
+    public Optional<User> findById(Integer integer) {
         return Optional.empty();
     }
 
@@ -47,5 +28,25 @@ public class DefaultUserRepository implements UserRepository {
     @Override
     public void remove(User user) {
 
+    }
+
+    @Override
+    public long findCount() {
+        return 0;
+    }
+
+    @Override
+    public Optional<User> findByNickname(String nickname) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<User> findByApplet(AppletQuery applet) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<User> findByCredential(CredentialQuery credential) {
+        return Optional.empty();
     }
 }

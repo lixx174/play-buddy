@@ -7,7 +7,6 @@ import com.qinghaotech.application.model.dto.AuthorityDto;
 import com.qinghaotech.application.model.query.AuthorityPageQuery;
 import com.qinghaotech.application.repository.AuthorityQueryRepository;
 import com.qinghaotech.domain.entity.authority.Authority;
-import com.qinghaotech.domain.entity.authority.AuthorityResource;
 import com.qinghaotech.domain.factory.EntityFactory;
 import com.qinghaotech.domain.repository.AuthorityRepository;
 import com.qinghaotech.domain.service.AuthorityDomainService;
@@ -45,12 +44,11 @@ public class AuthorityService {
     }
 
     public void modify(ModifyAuthorityCommand command) {
-        AuthorityResource authorityResource = new AuthorityResource(command.getType(), command.getPath());
         Authority authority = authorityRepository.findByIdOrElseThrow(command.getId());
 
         authority.reassignParent(command.getParentId(), authorityRepository::isExisted);
         authority.rename(command.getName(), authorityRepository::isNameExisted);
-        authority.changeResource(authorityResource);
+        authority.changeResource(command.getType(), command.getPath());
         authority.changePermission(command.getName(), authorityRepository::isPermissionExisted);
         authority.reorder(command.getSortNo());
 

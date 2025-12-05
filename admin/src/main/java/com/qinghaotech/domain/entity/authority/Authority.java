@@ -52,9 +52,14 @@ public class Authority implements Entity {
         }
     }
 
-    public void changeResource(AuthorityResource resource) {
-        if (resource != null) {
-            this.resource = resource;
+    public void changeResource(String type, String path) {
+        if (StringUtils.hasText(type)) {
+            this.resource = new AuthorityResource(type, path);
+            return;
+        }
+
+        if (StringUtils.hasText(path)) {
+            this.resource = new AuthorityResource(resource.type(), path);
         }
     }
 
