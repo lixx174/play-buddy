@@ -3,7 +3,8 @@ package com.qinghaotech.application.service;
 import com.qinghaotech.application.model.PageReply;
 import com.qinghaotech.application.model.command.authority.CreateAuthorityCommand;
 import com.qinghaotech.application.model.command.authority.ModifyAuthorityCommand;
-import com.qinghaotech.application.model.dto.AuthorityDto;
+import com.qinghaotech.application.model.dto.AuthorityDetailDto;
+import com.qinghaotech.application.model.dto.AuthoritySummaryDto;
 import com.qinghaotech.application.model.query.AuthorityPageQuery;
 import com.qinghaotech.application.repository.AuthorityQueryRepository;
 import com.qinghaotech.domain.entity.authority.Authority;
@@ -23,18 +24,16 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class AuthorityService {
 
-
     private final AuthorityQueryRepository authorityQueryRepository;
     private final AuthorityRepository authorityRepository;
     private final EntityFactory<Authority> entityFactory;
     private final AuthorityDomainService authorityDomainService;
 
-    public PageReply<AuthorityDto> page(AuthorityPageQuery query) {
-        authorityQueryRepository.findAll(query);
-        return null;
+    public PageReply<AuthoritySummaryDto> page(AuthorityPageQuery query) {
+        return authorityQueryRepository.findAll(query);
     }
 
-    public AuthorityDto detail(Integer id) {
+    public AuthorityDetailDto detail(Integer id) {
         return authorityQueryRepository.findById(id);
     }
 

@@ -15,9 +15,9 @@ public class PageQuery {
     /**
      * 当前页码(默认1)
      */
-    private Number current = 1;
+    private Number current;
     /**
      * 分页大小(默认10)
      */
-    private Number size = 10;
+    private Number size;
 }

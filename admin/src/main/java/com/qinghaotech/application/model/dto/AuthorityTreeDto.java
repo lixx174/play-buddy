@@ -10,10 +10,10 @@ import java.util.Collection;
  */
 @Getter
 @Setter
-public class RoleDto {
+public class AuthorityTreeDto {
 
     private Integer id;
     private String name;
     private String remark;
-    private Collection<AuthorityDto> authorities;
+    private Collection<AuthorityTreeDto> authorities;
 }

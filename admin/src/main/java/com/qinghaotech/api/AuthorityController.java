@@ -4,7 +4,8 @@ import com.qinghaotech.application.Result;
 import com.qinghaotech.application.model.PageReply;
 import com.qinghaotech.application.model.command.authority.CreateAuthorityCommand;
 import com.qinghaotech.application.model.command.authority.ModifyAuthorityCommand;
-import com.qinghaotech.application.model.dto.AuthorityDto;
+import com.qinghaotech.application.model.dto.AuthorityDetailDto;
+import com.qinghaotech.application.model.dto.AuthoritySummaryDto;
 import com.qinghaotech.application.model.query.AuthorityPageQuery;
 import com.qinghaotech.application.service.AuthorityService;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class AuthorityController {
      * @return 权限分页信息
      */
     @GetMapping("/page")
-    public Result<PageReply<AuthorityDto>> page(AuthorityPageQuery query) {
+    public Result<PageReply<AuthoritySummaryDto>> page(AuthorityPageQuery query) {
         return Result.succeed(service.page(query));
     }
 
@@ -47,7 +48,7 @@ public class AuthorityController {
      * @return 权限详情
      */
     @GetMapping("/detail")
-    public Result<AuthorityDto> detail(Integer id) {
+    public Result<AuthorityDetailDto> detail(Integer id) {
         return Result.succeed(service.detail(id));
     }
 

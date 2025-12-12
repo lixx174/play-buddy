@@ -86,7 +86,7 @@ public interface CurdRepository<ID, Entity> {
     }
 
     /**
-     * 批量保存实体
+     * 批量删除实体
      *
      * @param entities 实体数组
      */

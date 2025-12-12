@@ -10,10 +10,17 @@ import java.util.Collection;
  */
 @Getter
 @Setter
-public class RoleDto {
-
-    private Integer id;
+public class RoleSummaryDto extends BaseDto {
+    /**
+     * 角色名字
+     */
     private String name;
+    /**
+     * 角色备注
+     */
     private String remark;
+    /**
+     * 角色权限集
+     */
     private Collection<AuthorityDto> authorities;
 }

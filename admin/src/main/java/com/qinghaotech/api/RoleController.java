@@ -4,7 +4,8 @@ import com.qinghaotech.application.Result;
 import com.qinghaotech.application.model.PageReply;
 import com.qinghaotech.application.model.command.role.CreateRoleCommand;
 import com.qinghaotech.application.model.command.role.ModifyRoleCommand;
-import com.qinghaotech.application.model.dto.RoleDto;
+import com.qinghaotech.application.model.dto.RoleDetailDto;
+import com.qinghaotech.application.model.dto.RoleSummaryDto;
 import com.qinghaotech.application.model.query.RolePageQuery;
 import com.qinghaotech.application.service.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * 角色管理API
@@ -36,7 +37,7 @@ public class RoleController {
      * @return 系统角色分页信息
      */
     @GetMapping("/page")
-    public Result<PageReply<RoleDto>> page(RolePageQuery query) {
+    public Result<PageReply<RoleSummaryDto>> page(RolePageQuery query) {
         return Result.succeed(service.page(query));
     }
 
@@ -47,7 +48,7 @@ public class RoleController {
      * @return 系统角色详情
      */
     @GetMapping("/detail")
-    public Result<RoleDto> detail(Integer id) {
+    public Result<RoleDetailDto> detail(Integer id) {
         return Result.succeed(service.detail(id));
     }
 
@@ -80,7 +81,7 @@ public class RoleController {
      * @return void
      */
     @DeleteMapping("/remove")
-    public Result<Void> remove(@RequestBody Collection<Integer> ids) {
+    public Result<Void> remove(@RequestBody Set<Integer> ids) {
         return Result.succeed(() -> service.remove(ids));
     }
 }
