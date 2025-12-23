@@ -1,7 +1,7 @@
 package com.qinghaotech.infra.repository.query;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qinghaotech.application.model.PageQuery;
+import com.qinghaotech.application.model.PageReply;
 import com.qinghaotech.application.model.dto.WechatUserDto;
 import com.qinghaotech.application.repository.WechatUserQueryRepository;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultWechatUserQueryRepository implements WechatUserQueryRepository {
     @Override
-    public Page<WechatUserDto> findAll(PageQuery query) {
+    public PageReply<WechatUserDto> findAll(PageQuery query) {
         return null;
     }
 

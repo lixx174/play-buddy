@@ -19,7 +19,7 @@ public class WechatUserService {
     private final WechatUserQueryRepository wechatUserQueryRepository;
 
     public PageReply<WechatUserDto> page(WechatUserPageQuery query) {
-        return PageReply.of(wechatUserQueryRepository.findAll(query));
+        return wechatUserQueryRepository.findAll(query);
     }
 
     public WechatUserDto detail(Integer id) {

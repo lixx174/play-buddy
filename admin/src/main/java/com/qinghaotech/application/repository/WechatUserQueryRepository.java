@@ -1,7 +1,7 @@
 package com.qinghaotech.application.repository;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qinghaotech.application.model.PageQuery;
+import com.qinghaotech.application.model.PageReply;
 import com.qinghaotech.application.model.dto.WechatUserDto;
 
 /**
@@ -9,7 +9,7 @@ import com.qinghaotech.application.model.dto.WechatUserDto;
  */
 public interface WechatUserQueryRepository {
 
-    Page<WechatUserDto> findAll(PageQuery query);
+    PageReply<WechatUserDto> findAll(PageQuery query);
 
     WechatUserDto findById(Integer id);
 }

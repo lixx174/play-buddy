@@ -2,8 +2,10 @@ package com.qinghaotech.application.converter;
 
 import com.qinghaotech.application.model.dto.RoleDetailDto;
 import com.qinghaotech.application.model.dto.RoleSummaryDto;
-import com.qinghaotech.domain.entity.role.Role;
+import com.qinghaotech.infra.repository.persistence.model.RoleDo;
 import org.mapstruct.Mapper;
+
+import java.util.Collection;
 
 /**
  * @author Jinx
@@ -11,7 +13,9 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface RoleConverter {
 
-    RoleSummaryDto summaryConvert(Role role);
+    RoleSummaryDto summaryConvert(RoleDo role);
 
-    RoleDetailDto detailConvert(Role role);
+    Collection<RoleSummaryDto> summaryConvert(Collection<RoleDo> roleDos);
+
+    RoleDetailDto detailConvert(RoleDo role);
 }

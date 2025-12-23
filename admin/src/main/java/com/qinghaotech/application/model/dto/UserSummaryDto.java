@@ -8,17 +8,18 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class RoleSummaryDto extends BaseDto {
+public class UserSummaryDto extends BaseDto {
+
     /**
-     * 角色名字
+     * 名字
      */
     private String name;
     /**
-     * 角色备注
+     * 头像
      */
-    private String remark;
+    private String avatar;
     /**
-     * 角色状态
+     * 状态
      */
     private String status;
 }

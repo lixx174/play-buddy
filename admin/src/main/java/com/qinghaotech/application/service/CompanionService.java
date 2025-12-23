@@ -31,7 +31,7 @@ public class CompanionService {
 
 
     public PageReply<CompanionPageDto> page(PageQuery query) {
-        return PageReply.of(companionQueryRepository.findAll(query));
+        return companionQueryRepository.findAll(query);
     }
 
     public CompanionDto detail(Integer id) {

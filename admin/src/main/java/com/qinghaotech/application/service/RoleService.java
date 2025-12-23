@@ -31,7 +31,6 @@ public class RoleService {
         return roleQueryRepository.findAll(query);
     }
 
-
     public RoleDetailDto detail(Integer id) {
         return roleQueryRepository.findById(id);
     }

@@ -1,6 +1,5 @@
 package com.qinghaotech.infra.repository.query;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.qinghaotech.application.converter.AuthorityConverter;
 import com.qinghaotech.application.model.PageReply;
 import com.qinghaotech.application.model.dto.AuthorityDetailDto;
@@ -12,6 +11,8 @@ import com.qinghaotech.infra.repository.persistence.model.AuthorityDo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+
+import static com.baomidou.mybatisplus.core.toolkit.Wrappers.lambdaQuery;
 
 /**
  * @author Jinx
@@ -25,7 +26,7 @@ public class DefaultAuthorityQueryRepository implements AuthorityQueryRepository
 
     @Override
     public PageReply<AuthoritySummaryDto> findAll(AuthorityPageQuery query) {
-        var wrapper = Wrappers.lambdaQuery(AuthorityDo.class)
+        var wrapper = lambdaQuery(AuthorityDo.class)
                 .eq(StringUtils.hasText(query.getName()), AuthorityDo::getName, query.getName());
 
         var page = authorityMapper.selectPage(query, wrapper);

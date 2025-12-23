@@ -4,8 +4,10 @@ import com.qinghaotech.application.model.PageReply;
 import com.qinghaotech.application.model.command.CreateUserCommand;
 import com.qinghaotech.application.model.command.ModifyUserCommand;
 import com.qinghaotech.application.model.dto.UserDto;
+import com.qinghaotech.application.model.dto.UserSummaryDto;
 import com.qinghaotech.application.model.query.UserPageQuery;
 import com.qinghaotech.application.repository.UserQueryRepository;
+import com.qinghaotech.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +24,10 @@ public class UserService {
 
 
     private final UserQueryRepository userQueryRepository;
+    private final UserRepository userRepository;
 
-
-    public PageReply<UserDto> page(UserPageQuery query) {
-        return null;
+    public PageReply<UserSummaryDto> page(UserPageQuery query) {
+        return userQueryRepository.findAll(query);
     }
 
 

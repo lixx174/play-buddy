@@ -11,8 +11,20 @@ import java.util.Collection;
 @Getter
 @Setter
 public class RoleDetailDto extends BaseDto {
+    /**
+     * 角色名称
+     */
     private String name;
+    /**
+     * 角色备注
+     */
     private String remark;
+    /**
+     * 角色状态
+     */
     private String status;
-    private Collection<AuthorityDto> authorities;
+    /**
+     * 角色权限
+     */
+    private Collection<AuthorityTreeDto> authorities;
 }
