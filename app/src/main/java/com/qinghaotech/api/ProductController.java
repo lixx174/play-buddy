@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 商品API
+ * 商品 API
  *
  * @author Jinx
  */
@@ -38,7 +38,7 @@ public class ProductController {
     /**
      * 商品详情
      *
-     * @param id 陪玩师id
+     * @param id 商品唯一标识
      * @return 陪玩师详情
      */
     @PutMapping("/detail")

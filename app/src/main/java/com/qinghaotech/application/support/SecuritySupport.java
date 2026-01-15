@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class SecuritySupport {
 
     /**
-     * 获取当前登录用户id
+     * 获取当前登录用户唯一标识
      *
      * @return userId
      */

@@ -8,11 +8,11 @@ import com.qinghaotech.application.model.PageQuery;
 public class ProductPageQuery extends PageQuery {
 
     /**
-     * 分类id
+     * 分类唯一标识
      */
     private String categoryId;
     /**
-     * 商品id
+     * 商品唯一标识
      */
     private Integer templateId;
 }

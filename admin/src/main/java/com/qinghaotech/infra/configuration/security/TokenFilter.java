@@ -80,7 +80,7 @@ public class TokenFilter extends OncePerRequestFilter {
     }
 
     /**
-     * 是否允许的url
+     * 是否允许的 url
      *
      * @param request 请求信息
      * @return true：允许的

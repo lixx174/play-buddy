@@ -61,12 +61,11 @@ public class DefaultRoleQueryRepository implements RoleQueryRepository {
                     .filter(Objects::nonNull)
                     .collect(Collectors.toSet());
 
+            // TODO 组件注入
             var tree = TreeBuilder.builder()
                     .build(authorityTreeDtos, checkedAuthorityIds);
 
-            RoleDetailDto roleDetailDto = roleConverter.detailConvert(roleDo);
-            roleDetailDto.setAuthorities(tree);
-            return roleDetailDto;
+            return roleConverter.detailConvert(roleDo, tree);
         }
 
         return null;

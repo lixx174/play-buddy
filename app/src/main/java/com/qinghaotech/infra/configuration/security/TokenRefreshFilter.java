@@ -73,7 +73,7 @@ public class TokenRefreshFilter extends OncePerRequestFilter {
     }
 
     /**
-     * 是否有效的url
+     * 是否有效的 url
      *
      * @param request 请求信息
      * @return true：有效的

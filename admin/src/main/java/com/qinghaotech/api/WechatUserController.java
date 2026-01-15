@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 微信小程序用户管理API
+ * 微信小程序用户管理 API
  *
  * @author Jinx
  */
@@ -39,7 +39,7 @@ public class WechatUserController {
     /**
      * 详情
      *
-     * @param id 微信小程序用户id
+     * @param id 微信小程序用户唯一标识
      * @return 微信小程序用户详情
      */
     @GetMapping("/detail")

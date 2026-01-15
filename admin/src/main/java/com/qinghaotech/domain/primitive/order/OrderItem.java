@@ -3,7 +3,7 @@ package com.qinghaotech.domain.primitive.order;
 import org.springframework.util.Assert;
 
 /**
- * @param variantId 商品id
+ * @param variantId 商品唯一标识
  * @param count     购买数量
  * @author Jinx
  */

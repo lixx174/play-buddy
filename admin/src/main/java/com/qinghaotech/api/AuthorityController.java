@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Set;
 
 /**
- * 权限管理API
+ * 权限管理 API
  *
  * @author Jinx
  */
@@ -44,7 +44,7 @@ public class AuthorityController {
     /**
      * 详情
      *
-     * @param id 系统用户id
+     * @param id 系统权限唯一标识
      * @return 权限详情
      */
     @GetMapping("/detail")
@@ -77,7 +77,7 @@ public class AuthorityController {
     /**
      * 删除
      *
-     * @param ids 权限id数组
+     * @param ids 权限唯一标识数组
      * @return void
      */
     @DeleteMapping("/remove")

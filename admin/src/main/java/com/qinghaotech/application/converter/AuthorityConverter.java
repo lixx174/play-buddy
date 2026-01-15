@@ -30,6 +30,10 @@ public interface AuthorityConverter {
     })
     AuthorityDetailDto detailConvert(AuthorityDo authorityDo);
 
+    @Mappings({
+            @Mapping(target = "checked", ignore = true),
+            @Mapping(target = "children", ignore = true),
+    })
     AuthorityTreeDto treeConvert(AuthorityDo authorityDo);
 
     Collection<AuthorityTreeDto> treeConvert(Collection<AuthorityDo> authorityDos);

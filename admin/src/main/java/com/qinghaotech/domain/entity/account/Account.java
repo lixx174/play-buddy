@@ -21,9 +21,9 @@ public class Account implements Entity {
     }
 
     public Account(Integer id, String username, String password, String status) {
-        Assert.notNull(username, "username为空");
-        Assert.notNull(password, "password为空");
-        Assert.notNull(status, "status为空");
+        Assert.notNull(username, "username 为空");
+        Assert.notNull(password, "password 为空");
+        Assert.notNull(status, "status 为空");
 
         this.id = id;
         this.username = username;

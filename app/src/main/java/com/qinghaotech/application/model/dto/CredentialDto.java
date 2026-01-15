@@ -13,11 +13,11 @@ import java.time.LocalDateTime;
 public class CredentialDto {
 
     /**
-     * 访问token
+     * 访问凭证
      */
     private String accessToken;
     /**
-     * 刷新token
+     * 刷新凭证
      */
     private String refreshToken;
     /**

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 陪玩师管理API
+ * 陪玩师管理 API
  *
  * @author Jinx
  */
@@ -41,7 +41,7 @@ public class CompanionController {
     /**
      * 详情
      *
-     * @param id 陪玩师id
+     * @param id 陪玩师唯一标识
      * @return 陪玩师详情
      */
     @PutMapping("/detail")

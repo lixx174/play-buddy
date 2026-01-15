@@ -34,10 +34,10 @@ public class Companion implements Entity {
 
     @Builder
     public Companion(Integer id, WechatUser wechatUser, Status status, CompanionStarLevel starLevel, Collection<Integer> gameIds) {
-        Assert.notNull(wechatUser, "微信小程序用户为null");
-        Assert.notNull(status, "陪玩状态为null");
-        Assert.notNull(starLevel, "陪玩星级为null");
-        Assert.notNull(gameIds, "陪玩支持游戏为null");
+        Assert.notNull(wechatUser, "微信小程序用户为 null");
+        Assert.notNull(status, "陪玩状态为 null");
+        Assert.notNull(starLevel, "陪玩星级为 null");
+        Assert.notNull(gameIds, "陪玩支持游戏为 null");
 
         this.id = id;
         this.wechatUser = wechatUser;

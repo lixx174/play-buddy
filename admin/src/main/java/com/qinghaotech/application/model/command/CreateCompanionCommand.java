@@ -15,7 +15,7 @@ import java.util.Set;
 public class CreateCompanionCommand {
 
     /**
-     * 小程序用户id
+     * 小程序用户唯一标识
      */
     private Integer wechatUserId;
     /**

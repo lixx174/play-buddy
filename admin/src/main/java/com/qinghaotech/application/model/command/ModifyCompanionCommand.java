@@ -14,7 +14,7 @@ import java.util.Set;
 @Setter
 public class ModifyCompanionCommand {
     /**
-     * 陪玩师id
+     * 陪玩师唯一标识
      */
     private Integer id;
     /**

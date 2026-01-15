@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Set;
 
 /**
- * 角色管理API
+ * 角色管理 API
  *
  * @author Jinx
  */
@@ -44,7 +44,7 @@ public class RoleController {
     /**
      * 详情
      *
-     * @param id 系统用户id
+     * @param id 系统角色唯一标识
      * @return 系统角色详情
      */
     @GetMapping("/detail")
@@ -77,7 +77,7 @@ public class RoleController {
     /**
      * 删除
      *
-     * @param ids 系统角色id数组
+     * @param ids 系统角色唯一标识数组
      * @return void
      */
     @DeleteMapping("/remove")

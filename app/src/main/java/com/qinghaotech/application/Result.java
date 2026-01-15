@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class Result<T> {
     /**
-     * 响应code
+     * 响应码
      */
     private final int code;
     /**

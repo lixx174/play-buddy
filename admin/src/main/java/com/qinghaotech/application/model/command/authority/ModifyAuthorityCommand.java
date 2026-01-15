@@ -12,11 +12,11 @@ import lombok.Setter;
 @Setter
 public class ModifyAuthorityCommand {
     /**
-     * 权限id
+     * 权限唯一标识
      */
     private Integer id;
     /**
-     * 父权限id
+     * 父权限唯一标识
      */
     private Integer parentId;
     /**

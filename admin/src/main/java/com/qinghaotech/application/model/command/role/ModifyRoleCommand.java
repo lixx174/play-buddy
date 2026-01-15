@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 public class ModifyRoleCommand {
     /**
-     * 角色id
+     * 角色唯一标识
      */
     private Integer id;
     /**
@@ -29,7 +29,7 @@ public class ModifyRoleCommand {
      */
     private Status status;
     /**
-     * 权限id集
+     * 权限唯一标识集
      */
     private Set<Integer> authorityIds;
 }

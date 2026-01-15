@@ -20,7 +20,7 @@ public class CreateRoleCommand {
      */
     private String remark;
     /**
-     * 权限id集
+     * 权限唯一标识集
      */
     private Set<Integer> authorityIds;
 }

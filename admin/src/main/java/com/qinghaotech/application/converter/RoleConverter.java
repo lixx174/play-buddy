@@ -1,5 +1,6 @@
 package com.qinghaotech.application.converter;
 
+import com.qinghaotech.application.model.dto.AuthorityTreeDto;
 import com.qinghaotech.application.model.dto.RoleDetailDto;
 import com.qinghaotech.application.model.dto.RoleSummaryDto;
 import com.qinghaotech.infra.repository.persistence.model.RoleDo;
@@ -17,5 +18,5 @@ public interface RoleConverter {
 
     Collection<RoleSummaryDto> summaryConvert(Collection<RoleDo> roleDos);
 
-    RoleDetailDto detailConvert(RoleDo role);
+    RoleDetailDto detailConvert(RoleDo role, Collection<AuthorityTreeDto> authorities);
 }

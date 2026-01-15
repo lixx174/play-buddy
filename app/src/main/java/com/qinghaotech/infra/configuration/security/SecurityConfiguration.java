@@ -39,7 +39,7 @@ public class SecurityConfiguration {
 
             @Override
             public boolean matches(CharSequence rawPassword, String encodedPassword) {
-                // 永远返回true
+                // 永远返回 true
                 return true;
             }
         };

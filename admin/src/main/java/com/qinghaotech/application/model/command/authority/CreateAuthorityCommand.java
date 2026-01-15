@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class CreateAuthorityCommand {
     /**
-     * 父权限id
+     * 父权限唯一标识
      */
     private Integer parentId;
     /**

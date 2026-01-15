@@ -8,7 +8,7 @@ import org.springframework.util.Assert;
 public record VariantInventory(Integer value) {
 
     public VariantInventory {
-        Assert.notNull(value, "库存不能为null");
+        Assert.notNull(value, "库存不能为 null");
         Assert.isTrue(value >= 0, "库存不能为负");
     }
 

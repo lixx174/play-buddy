@@ -12,9 +12,9 @@ import java.util.function.Supplier;
 public interface CurdRepository<ID, Entity> {
 
     /**
-     * 通过id查询实体
+     * 通过唯一标识查询实体
      *
-     * @param id 实体id
+     * @param id 实体唯一标识
      * @return 实体
      */
     Optional<Entity> findById(ID id);
@@ -36,7 +36,7 @@ public interface CurdRepository<ID, Entity> {
     /**
      * 通过id查询实体。如果不存在会抛出{@link UnprocessableException}。
      *
-     * @param id 实体id
+     * @param id 实体唯一标识
      * @return 实体
      */
     default Entity findByIdOrElseThrow(ID id) {
@@ -51,7 +51,7 @@ public interface CurdRepository<ID, Entity> {
     /**
      * 通过id查询实体。如果不存在则执行一个回调。
      *
-     * @param id     实体id
+     * @param id     实体唯一标识
      * @param action 构建实体回调
      * @return 实体
      */

@@ -16,9 +16,9 @@ public interface AuthorityRepository extends CurdRepository<Integer, Authority> 
     Optional<Authority> findByPermission(String permission);
 
     /**
-     * 根据父id 获取其子节点
+     * 根据父唯一标识 获取其子节点
      *
-     * @param pid 父id
+     * @param pid 父唯一标识
      * @return 子节点实体
      */
     Collection<Authority> findByPid(Integer pid);
@@ -48,7 +48,7 @@ public interface AuthorityRepository extends CurdRepository<Integer, Authority> 
     /**
      * 实体是否存在
      *
-     * @param id 实体id
+     * @param id 实体唯一标识
      * @return true：存在
      */
     default boolean isExisted(Integer id) {

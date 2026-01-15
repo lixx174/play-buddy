@@ -5,6 +5,7 @@ import com.qinghaotech.application.model.PageReply;
 import com.qinghaotech.application.model.command.CreateUserCommand;
 import com.qinghaotech.application.model.command.ModifyUserCommand;
 import com.qinghaotech.application.model.dto.UserDto;
+import com.qinghaotech.application.model.dto.UserSummaryDto;
 import com.qinghaotech.application.model.query.UserPageQuery;
 import com.qinghaotech.application.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 /**
- * 后台用户管理API
+ * 后台用户管理 API
  *
  * @author Jinx
  */
@@ -36,14 +37,14 @@ public class UserController {
      * @return 系统用户分页信息
      */
     @GetMapping("/page")
-    public Result<PageReply<UserDto>> page(UserPageQuery query) {
+    public Result<PageReply<UserSummaryDto>> page(UserPageQuery query) {
         return Result.succeed(service.page(query));
     }
 
     /**
      * 详情
      *
-     * @param id 系统用户id
+     * @param id 系统用户唯一标识
      * @return 系统用户详情
      */
     @GetMapping("/detail")
@@ -76,7 +77,7 @@ public class UserController {
     /**
      * 删除
      *
-     * @param ids 系统用户id数组
+     * @param ids 系统用户唯一标识数组
      * @return void
      */
     @DeleteMapping("/remove")

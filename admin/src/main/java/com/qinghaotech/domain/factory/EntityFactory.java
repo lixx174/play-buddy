@@ -16,7 +16,7 @@ public interface EntityFactory<T extends Entity> {
 
 
     /**
-     * 创建entity
+     * 创建实体
      *
      * @param source   源对象 entity的属性值从里面获取
      * @param callback 创建完成前回调  当无法通过source完成时通过该回调让调用方自己构建

@@ -31,7 +31,7 @@ public class TreeBuilder {
      * 构建树
      *
      * @param nodes      待构建为树的列表
-     * @param checkedIds 已选中的id
+     * @param checkedIds 已选中的唯一标识
      * @param <T>        构建类型
      * @return tree
      * @see Treeable
