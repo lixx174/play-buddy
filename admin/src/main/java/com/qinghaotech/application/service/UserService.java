@@ -7,6 +7,7 @@ import com.qinghaotech.application.model.dto.UserDto;
 import com.qinghaotech.application.model.dto.UserSummaryDto;
 import com.qinghaotech.application.model.query.UserPageQuery;
 import com.qinghaotech.application.repository.UserQueryRepository;
+import com.qinghaotech.domain.entity.user.User;
 import com.qinghaotech.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,11 +33,13 @@ public class UserService {
 
 
     public UserDto detail(Integer id) {
-        return null;
+        return userQueryRepository.findById(id);
     }
 
     public void create(CreateUserCommand command) {
-
+        User user = User.builder()
+                .build();
+        userRepository.save(user);
     }
 
     public void modify(ModifyUserCommand command) {
